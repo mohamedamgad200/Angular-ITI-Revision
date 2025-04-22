@@ -1,0 +1,44 @@
+<h1>Total Order price :{{totalOrderPrice}}</h1>
+<h2>Selected Category is {{selectedCategoryId}}</h2>
+<div class="mb-3">
+    <label for="" class="form-label">Category</label>
+    <select class="form-select form-select-lg" name="" id="" [(ngModel)]="selectedCategoryId">
+        <option *ngFor=" let category of categories" [value]="category.id">{{category.name}}</option>
+    </select>
+</div>
+<button (click)="change()">Change Category</button>
+<div class="row row-cols-1 row-cols-md-4 g-4">
+    <ng-container *ngFor="let product of products;let i=index;let c=count">
+        <div *ngIf="product.quantity!=0">
+            <!-- <div class="col" class="card" [class.d-none]="product.catId!=selectedCategoryId"> -->
+            <div class="col" class="card" [ngStyle]="{border:(product.id==1)?'1px solid red':'1px solid green'}">
+                <div>
+                    <!-- <img [src]="product.imgUrl" class="card-img-top" alt="...">
+                    <div class="card-body" [style.background-color]="(product.catId == 1) ?'yellow':'red'"> -->
+                    <img [src]="product.imgUrl" class="card-img-top" alt="...">
+                    <div class="card-body" [ngClass]="(product.quantity==1)? 'text-danger':'text-success'">
+                        <h5 class=" card-title">{{i+1}} {{product.name}}</h5>
+                        <p class="card-text">Price : {{product.price}}</p>
+                        <!-- <p class="card-text" *ngIf="product.quantity!=1;else lastItem">Quantity : {{product.quantity}}
+                        </p>
+                        <ng-template #lastItem>
+                            <p>Quantity : last item</p>
+                        </ng-template> -->
+                        <div [ngSwitch]="product.quantity">
+                            <p class="card-text" *ngSwitchCase="1">Quantity : Last Item
+                            </p>
+                            <p class="card-text" *ngSwitchCase="2">Quantity : Last Two Items
+                            </p>
+                            <p class="card-text" *ngSwitchDefault="">Quantity : {{product.quantity}}
+                            </p>
+                        </div>
+                        <p class="card-text">{{c}}</p>
+                        <!-- template variable ,refrence -->
+                        <input type="number" #countInput />
+                        <button class=" btn btn-success " (click)="buy(countInput.value,product.price)">buy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
