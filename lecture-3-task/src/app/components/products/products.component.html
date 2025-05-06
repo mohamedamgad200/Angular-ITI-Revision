@@ -1,0 +1,32 @@
+<div class="row row-cols-1 row-cols-md-4 g-4">
+    @for (product of filterdProducts; track product.id) {
+    <div *ngIf="product.quantity!=0">
+        <div class="col" class="card">
+            <img [src]="product.imgUrl" class="card-img-top" [alt]="product.name">
+            <div class="card-body" appHighligtdirective="green">
+                <h5 class=" card-title">{{product.name}}</h5>
+                <p class="card-text">Price : {{product.price|currency:'USD'}}</p>
+                @switch (product.quantity) {
+                @case (1) {
+                <p class="card-text">Quantity : Last Item</p>
+                }
+                @case (2) {
+                <p class="card-text">Quantity : Last Two Items</p>
+                }@default {
+                <p class="card-text">Quantity : {{product.quantity}}</p>
+                }
+                }
+                <div class="d-flex gap-2">
+                    <input type="number" #countInput />
+                    <button class=" btn btn-success " (click)="buy(product,countInput.value)">buy</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    }@empty {
+    <p>No Product Found</p>
+    }
+</div>
+<!-- <h2>{{nationalId|nationalIdPipe:"fullDate"}}</h2>
+<h2>{{creditCard|creditCardPipe}}</h2> -->
