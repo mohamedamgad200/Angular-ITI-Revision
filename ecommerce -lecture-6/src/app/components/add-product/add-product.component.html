@@ -1,0 +1,80 @@
+<h1>{{ newProduct | json }}</h1>
+<form (submit)="addNewProduct()" #addProductForm="ngForm">
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Name:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="exampleInputEmail1"
+      aria-describedby="emailHelp"
+      name="name"
+      #productName="ngModel"
+      required
+      pattern="^[a-zA-Z]{3,15}$"
+      [(ngModel)]="newProduct.name"
+    />
+    @if (productName.invalid && productName.touched) {
+    <div class="text-danger">
+      @if (productName.errors?.['required']) {
+      <p>Name is requied</p>
+      } @if (productName.errors?.['pattern']) {
+      <p>Name must be at least 3 characters</p>
+      }
+    </div>
+    }
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Price:</label>
+    <input
+      type="number"
+      class="form-control"
+      id="exampleInputEmail1"
+      aria-describedby="emailHelp"
+      name="price"
+      [(ngModel)]="newProduct.price"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Quantity:</label>
+    <input
+      type="number"
+      class="form-control"
+      id="exampleInputEmail1"
+      aria-describedby="emailHelp"
+      name="quantity"
+      [(ngModel)]="newProduct.quantity"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Image:</label>
+    <input
+      type="file"
+      class="form-control"
+      id="exampleInputEmail1"
+      aria-describedby="emailHelp"
+      name="imgUrl"
+      [(ngModel)]="newProduct.imgUrl"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="" class="form-label">Categories</label>
+    <select
+      class="form-select"
+      name=""
+      id=""
+      [(ngModel)]="newProduct.catId"
+      name="catId"
+    >
+      @for(category of categories;track category.id){
+      <option [value]="category.id">{{ category.name }}</option>
+      }
+    </select>
+  </div>
+  <button
+    type="submit"
+    class="btn btn-primary"
+    [disabled]="addProductForm.invalid"
+  >
+    Submit
+  </button>
+</form>

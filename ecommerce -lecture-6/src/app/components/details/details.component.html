@@ -1,0 +1,30 @@
+<div class="container">
+  <img
+    [src]="product?.imgUrl"
+    alt="Product Image"
+    style="width: 200px; height: 200px"
+  />
+  <h1>Name : {{ product?.name }}</h1>
+  <h1>price : {{ product?.price | currency : "EGP " }}</h1>
+  <h1>Category : {{ product?.catId }}</h1>
+  <h1>Quantity :{{ product?.quantity }}</h1>
+  <button class="btn btn-primary" (click)="getBack()">Back</button>
+  <div class="mt-3 d-flex justify-content-between">
+    <button
+      class="btn btn-danger"
+      [disabled]="currentProductId === productsIdsArray[0]"
+      (click)="previous()"
+    >
+      Previous
+    </button>
+    <button
+      class="btn btn-success"
+      [disabled]="
+        currentProductId === productsIdsArray[productsIdsArray.length - 1]
+      "
+      (click)="next()"
+    >
+      Next
+    </button>
+  </div>
+</div>
